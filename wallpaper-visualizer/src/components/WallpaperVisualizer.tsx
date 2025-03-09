@@ -42,9 +42,9 @@ const WallpaperVisualizer: React.FC<WallpaperVisualizerProps> = ({ wallWidth, wa
     scaleRef.current = Math.min(scaleX, scaleY);
     const scaledWallpaperWidth = wallpaperWidth * (wallHeight / wallpaperHeight) * scaleRef.current;
 
-    // Oblicz dynamicznie liczbę powtórzeń
+    // Zwiększenie liczby powtórzeń
     const visibleWidth = wallWidth * scaleRef.current;
-    const requiredRepetitions = Math.ceil(visibleWidth / scaledWallpaperWidth) + 4;
+    const requiredRepetitions = Math.ceil(visibleWidth / scaledWallpaperWidth) * 3; // Zwiększono 3 krotnie
 
     layer.destroyChildren();
 
@@ -59,9 +59,10 @@ const WallpaperVisualizer: React.FC<WallpaperVisualizerProps> = ({ wallWidth, wa
       scaledWallpaperWidth,
       requiredRepetitions,
       initialOffsetX,
+      offsetX,
     });
 
-    for (let i = -2; i < requiredRepetitions - 2; i++) {
+    for (let i = -requiredRepetitions / 2; i < requiredRepetitions / 2; i++) {
       layer.add(
         wallpaperImage.clone({
           x: i * scaledWallpaperWidth + offsetX * scaleRef.current + initialOffsetX,
